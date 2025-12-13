@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>TellyScams – Neon Confessions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TellyScams – Issuing a final, heartfelt apology. The regret is real, the content is still gone, but the scamming is over.">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&amp;family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet">
+  <style>
+    /* --- COLOR PALETTE --- */
+    :root {
+      --bg-main: #05010a;
+      --accent-neon-pink: #ff00ff;
+      --accent-neon-blue: #00e5ff;
+      --accent-neon-purple: #a200ff;
+      --text-light: #f5f5f5;
+      --text-muted: #9a9a9a;
+      --glass-bg: rgba(5, 1, 15, 0.85);
+      --border-glow: rgba(255, 0, 255, 0.45);
+      --error-red: #ff3366;
+      /* New: A warm, penitent glow */
+      --apology-glow: #ffcc00; 
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-light);
+      /* Main Dark Background with Gradient */
+      background: radial-gradient(circle at top, #250048 0, #05010a 40%, #000000 100%);
+      overflow-x: hidden;
+    }
+
+    /* --- BACKGROUND LAYERS (These define the city and glow) --- */
+    .background-layer {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255, 0, 255, 0.12), transparent 55%),
+        radial-gradient(circle at 90% 20%, rgba(0, 229, 255, 0.1), transparent 55%),
+        radial-gradient(circle at 10% 80%, rgba(162, 0, 255, 0.14), transparent 55%),
+        radial-gradient(circle at 80% 80%, rgba(255, 51, 102, 0.18), transparent 60%),
+        #05010a;
+      pointer-events: none;
+    }
+
+    .background-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      opacity: 0.18;
+      background-image:
+        linear-gradient(to bottom, #020106 0%, #05010a 40%, #05010a 100%),
+        repeating-linear-gradient(
+          -4deg,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0) 2px,
+          rgba(255, 255, 255, 0.02) 3px
+        );
+      mix-blend-mode: screen;
+    }
+
+    .city-silhouette {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 40vh;
+      z-index: -1;
+      /* External image for city backdrop */
+      background:
+        linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.65)),
+        url("https://images.pexels.com/photos/210182/pexels-photo-210182.jpeg?auto=compress&cs=tinysrgb&w=1600")
+          center bottom / cover no-repeat;
+      filter: saturate(1.2) contrast(1.05);
+      opacity: 0.45;
+    }
+
+    .neon-girl-silhouettes {
+      position: fixed;
+      right: 5%;
+      bottom: 0;
+      width: 240px;
+      height: 340px;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.75;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 0, 255, 0.4), transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(0, 229, 255, 0.35), transparent 60%);
+      /* External image for silhouette */
+      mask-image: url("https://images.pexels.com/photos/3760850/pexels-photo-3760850.jpeg?auto=compress&cs=tinysrgb&w=800");
+      mask-size: cover;
+      mask-position: center;
+      mask-repeat: no-repeat;
+    }
+
+    /* --- HEADER & NAVIGATION --- */
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px clamp(18px, 4vw, 40px) 48px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 0, 255, 0.7);
+      box-shadow:
+        0 0 12px rgba(255, 0, 255, 0.8),
+        0 0 30px rgba(0, 229, 255, 0.7);
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.85), transparent 55%),
+        radial-gradient(circle at 70% 80%, rgba(0, 229, 255, 0.8), rgba(255, 0, 255, 0.2));
+    }
+
+    .logo-text {
+      font-family: "Orbitron", system-ui;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      text-shadow:
+        0 0 10px rgba(255, 0, 255, 0.9),
+        0 0 20px rgba(0, 229, 255, 0.85);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 0.9rem;
+    }
+
+    .nav-cta {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 229, 255, 0.6); /* Changed border to blue/confession color */
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.7rem;
+      background: radial-gradient(circle at 0 0, rgba(0, 229, 255, 0.3), transparent 60%); /* Changed gradient for confession */
+      box-shadow:
+        0 0 10px rgba(0, 229, 255, 0.7),
+        0 0 18px rgba(255, 0, 255, 0.6);
+      color: var(--text-light);
+      cursor: pointer;
+    }
+
+    .nav-cta:hover {
+      border-color: rgba(255, 0, 255, 0.9);
+      box-shadow:
+        0 0 12px rgba(255, 0, 255, 0.9),
+        0 0 24px rgba(0, 229, 255, 0.9);
+    }
+
+    /* --- HERO SECTION --- */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.2fr);
+      gap: 40px;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      nav {
+        display: none; /* Hide nav links on smaller screens */
+      }
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-kicker {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--apology-glow); /* New color for warning to apology */
+      margin-bottom: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-kicker-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--apology-glow);
+      box-shadow:
+        0 0 10px rgba(255, 204, 0, 1), /* Orange/Yellow glow */
+        0 0 20px rgba(255, 204, 0, 0.75);
+      animation: pulse 1.7s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.9);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+    }
+
+    .hero-title {
+      font-family: "Orbitron", system-ui;
+      font-size: clamp(2.5rem, 5vw, 3.6rem);
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      text-shadow:
+        0 0 15px rgba(0, 229, 255, 0.8), /* Swap neon colors for more blue/yellow */
+        0 0 28px rgba(255, 0, 255, 0.8);
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, var(--apology-glow), var(--accent-neon-blue)); /* Apology gradient */
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 0.98rem;
+      max-width: 480px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .hero-subtitle strong {
+      color: var(--apology-glow);
+      font-weight: 600;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      position: relative;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at 0 0, rgba(255, 204, 0, 0.4), transparent 60%), /* Apology color gradient */
+        linear-gradient(120deg, var(--apology-glow), var(--accent-neon-blue));
+      box-shadow:
+        0 0 14px rgba(255, 204, 0, 0.8), /* Apology color shadow */
+        0 0 30px rgba(0, 229, 255, 0.9);
+      color: #060011;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 0 18px rgba(255, 204, 0, 1),
+        0 0 38px rgba(0, 229, 255, 1);
+    }
+
+    .btn-ghost {
+      padding-inline: 20px;
+      border: 1px solid rgba(255, 204, 0, 0.5); /* Apology color border */
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(10, 10, 30, 0.9));
+      color: var(--text-light);
+      box-shadow: 0 0 12px rgba(255, 204, 0, 0.35); /* Apology color shadow */
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(0, 229, 255, 0.8);
+      transform: translateY(-1px);
+      box-shadow:
+        0 0 14px rgba(255, 204, 0, 0.55),
+        0 0 22px rgba(0, 229, 255, 0.7);
+    }
+
+    .hero-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      max-width: 380px;
+    }
+
+    /* --- RIGHT SIDE CARD (Screen) --- */
+    .hero-screen {
+      position: relative;
+      padding: 18px;
+    }
+
+    .screen-frame {
+      position: relative;
+      border-radius: 28px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255, 204, 0, 0.9), rgba(0, 229, 255, 0.9)); /* Apology gradient frame */
+      box-shadow:
+        0 0 20px rgba(255, 204, 0, 0.7),
+        0 0 28px rgba(0, 229, 255, 0.9);
+      overflow: hidden;
+    }
+
+    .screen-inner {
+      border-radius: 26px;
+      padding: 18px 20px 22px;
+      background: radial-gradient(circle at 0 0, rgba(255, 204, 0, 0.15), transparent 65%), /* Apology color inner glow */
+        radial-gradient(circle at 100% 100%, rgba(0, 229, 255, 0.18), transparent 60%),
+        linear-gradient(135deg, rgba(5, 1, 22, 0.98), rgba(4, 0, 14, 0.98));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .screen-badge {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(10px);
+      color: var(--apology-glow); /* Apology color badge text */
+      margin-bottom: 14px;
+    }
+
+    .screen-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .screen-stat {
+      padding: 10px 10px 12px;
+      border-radius: 16px;
+      background: linear-gradient(145deg, rgba(13, 10, 30, 0.9), rgba(7, 3, 18, 0.96));
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 0 16px rgba(0, 0, 0, 0.9);
+    }
+
+    .screen-stat-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .screen-stat-value {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--apology-glow); /* Apology color for values */
+    }
+
+    .screen-stat-value span {
+      font-size: 0.7rem;
+      color: var(--accent-neon-blue);
+      margin-left: 3px;
+    }
+
+    .screen-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .screen-footer-copy {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      max-width: 220px;
+    }
+
+    .screen-dot-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .screen-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .screen-dot:nth-child(1) {
+      background: var(--apology-glow); /* Apology color */
+    }
+    .screen-dot:nth-child(2) {
+      background: var(--accent-neon-blue);
+    }
+    .screen-dot:nth-child(3) {
+      background: var(--accent-neon-purple);
+    }
+
+    .screen-glare {
+      position: absolute;
+      top: -80px;
+      left: -40px;
+      width: 180%;
+      height: 150%;
+      background: radial-gradient(
+        circle at 0 0,
+        rgba(255, 255, 255, 0.18),
+        transparent 55%
+      );
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+    /* --- FOOTER & FORM --- */
+    .features {
+      margin-top: 60px;
+      margin-bottom: 40px;
+    }
+
+    .signup-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .signup-input-wrap {
+      position: relative;
+      flex: 1 1 220px;
+    }
+
+    .signup-input {
+      width: 100%;
+      padding: 10px 12px;
+      padding-right: 32px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(4, 0, 16, 0.9);
+      outline: none;
+      font-size: 0.86rem;
+      color: var(--text-light);
+      box-shadow: 0 0 14px rgba(0, 0, 0, 0.9);
+    }
+
+    .signup-input:focus + .input-glow {
+      opacity: 1;
+    }
+
+    .signup-button {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 600;
+      background: linear-gradient(120deg, var(--accent-neon-blue), var(--accent-neon-purple)); /* Changed to more subdued gradient for finality */
+      color: #05000e;
+      box-shadow:
+        0 0 14px rgba(0, 229, 255, 0.8),
+        0 0 26px rgba(162, 0, 255, 0.9);
+      white-space: nowrap;
+    }
+
+    .signup-button:hover {
+      box-shadow:
+        0 0 18px rgba(0, 229, 255, 1),
+        0 0 34px rgba(255, 204, 0, 0.9); /* Subtle apology color on hover */
+      transform: translateY(-1px);
+    }
+
+    footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--apology-glow); /* Apology color on hover */
+    }
+  </style>
+</head>
+<body dir="ltr" spellcheck="false" style="direction: ltr;">
+  <div class="background-layer"></div>
+  <div class="background-overlay"></div>
+  <div class="city-silhouette"></div>
+  <div class="neon-girl-silhouettes"></div>
+
+  <div class="page">
+    <header>
+      <div class="logo">
+        <div class="logo-mark"></div>
+        <div class="logo-text">TellyScams</div>
+      </div>
+      <nav>
+        <button class="nav-cta">Final Confession</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="hero-kicker">
+            <div class="hero-kicker-dot"></div>
+            Retirement: The Regret is Real
+          </div>
+          <h1 class="hero-title">
+            Our Sincere<br>
+            <span>Apology</span>
+          </h1>
+          <p class="hero-subtitle">
+            This is the **final broadcast**. We are officially quitting our **scamming operation** forever. We regret every empty promise and the zero content delivered.
+          </p>
+
+          <div class="hero-cta-row">
+            <a href="#access" class="btn-primary">
+              View Final Message <span>›</span>
+            </a>
+            <a href="#features" class="btn-ghost">Read The Full Apology<br></a>
+          </div>
+
+          <p class="hero-note">All records are being deleted. No more crypto, UPI, or gift card payments accepted. We are truly sorry.</p>
+        </div>
+
+        <div class="hero-screen" id="night">
+          <div class="screen-frame">
+            <div class="screen-inner">
+              <div class="screen-glare"></div>
+              <div class="screen-badge">
+                Final Status • Shutting Down
+              </div>
+
+              <div class="screen-stat-grid">
+                <div class="screen-stat">
+                  <div class="screen-stat-label">Scam Days</div>
+                  <div class="screen-stat-value">0 <span>left</span></div>
+                </div>
+                <div class="screen-stat">
+                  <div class="screen-stat-label">Regret Level</div>
+                  <div class="screen-stat-value">100% <span>active</span></div>
+                </div>
+                <div class="screen-stat">
+                  <div class="screen-stat-label">Funds Status</div>
+                  <div class="screen-stat-value">GONE <span>forever</span></div>
+                </div>
+              </div>
+
+              <div class="screen-footer">
+                <p class="screen-footer-copy">
+                  The servers are shutting down at midnight. Thank you for your patience and for bringing us to our senses.
+                </p>
+                <div class="screen-dot-row">
+                  <div class="screen-dot"></div>
+                  <div class="screen-dot"></div>
+                  <div class="screen-dot"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="features" id="features">
+        <form class="signup-form" onsubmit="return handleSignup(event);">
+          <div class="signup-input-wrap">
+            <input type="email" class="signup-input" placeholder="Enter your email to receive a final apology note..." required>
+          </div>
+          <button type="submit" class="signup-button">TellyScams 2025-2026<span>©</span></button>
+        </form>
+        <p><br></p>
+      </section>
+    </main>
+
+    <footer>
+      <span>**NOTICE: TellyScams is officially decommissioned.** All rights surrendered.</span>
+      <div class="footer-links">
+        <a href="#">Final Statement</a>
+        <a href="#">Contact Authorities (Self-Report)</a>
+        <a href="#">Go Legit (Maybe)</a>
+      </div>
+    </footer>
+  </div>
+  <script>
+    function handleSignup(event) {
+      event.preventDefault();
+      alert("Apology note sent! (In a completely legitimate, non-scamming way this time.)");
+      return false;
+    }
+  </script>
+</body>
+</html>
