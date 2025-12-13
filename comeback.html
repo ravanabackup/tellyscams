@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>TellyScams – UNSTOPPABLE DOMINATION</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TellyScams is back. We are bolder, hungrier, and ready to drain your wallet. Prepare for total IPTV domination.">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&amp;family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet">
+  <style>
+    /* --- COLOR PALETTE --- */
+    :root {
+      --bg-main: #05010a;
+      --accent-neon-pink: #ff00ff;
+      --accent-neon-blue: #00e5ff;
+      --accent-neon-purple: #a200ff;
+      --text-light: #f5f5f5;
+      --text-muted: #9a9a9a;
+      --glass-bg: rgba(5, 1, 15, 0.85);
+      --border-glow: rgba(255, 0, 255, 0.45);
+      --error-red: #ff3366;
+      /* NEW: Aggressive Red/Pink */
+      --accent-aggressive: #ff1493;
+      --accent-domination: #ff69b4;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-light);
+      /* Main Dark Background with Gradient */
+      background: radial-gradient(circle at top, #30005a 0, #05010a 40%, #000000 100%);
+      overflow-x: hidden;
+    }
+
+    /* --- BACKGROUND LAYERS (Aggressive Glows) --- */
+    .background-layer {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255, 20, 147, 0.2), transparent 55%), /* Aggressive Pink */
+        radial-gradient(circle at 90% 20%, rgba(0, 229, 255, 0.1), transparent 55%),
+        radial-gradient(circle at 10% 80%, rgba(162, 0, 255, 0.14), transparent 55%),
+        radial-gradient(circle at 80% 80%, rgba(255, 105, 180, 0.25), transparent 60%), /* Hot Pink Domination */
+        #05010a;
+      pointer-events: none;
+    }
+
+    .background-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      opacity: 0.25; /* Increased opacity for heavier feel */
+      background-image:
+        linear-gradient(to bottom, #020106 0%, #05010a 40%, #05010a 100%),
+        repeating-linear-gradient(
+          -4deg,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0) 2px,
+          rgba(255, 255, 255, 0.04) 3px /* More visible scanlines */
+        );
+      mix-blend-mode: screen;
+    }
+
+    .city-silhouette {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 40vh;
+      z-index: -1;
+      background:
+        linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.65)),
+        url("https://images.pexels.com/photos/210182/pexels-photo-210182.jpeg?auto=compress&cs=tinysrgb&w=1600")
+          center bottom / cover no-repeat;
+      filter: saturate(1.5) contrast(1.1); /* More saturated/darker city */
+      opacity: 0.6;
+    }
+
+    .neon-girl-silhouettes {
+      position: fixed;
+      right: 5%;
+      bottom: 0;
+      width: 240px;
+      height: 340px;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.85; /* More visible silhouette */
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 20, 147, 0.5), transparent 60%), /* Aggressive Pink */
+        radial-gradient(circle at 80% 80%, rgba(0, 229, 255, 0.4), transparent 60%);
+      mask-image: url("https://images.pexels.com/photos/3760850/pexels-photo-3760850.jpeg?auto=compress&cs=tinysrgb&w=800");
+      mask-size: cover;
+      mask-position: center;
+      mask-repeat: no-repeat;
+    }
+
+    /* --- HEADER & NAVIGATION --- */
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px clamp(18px, 4vw, 40px) 48px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 20, 147, 0.8); /* Aggressive border */
+      box-shadow:
+        0 0 14px rgba(255, 20, 147, 0.9),
+        0 0 32px rgba(0, 229, 255, 0.8);
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.85), transparent 55%),
+        radial-gradient(circle at 70% 80%, rgba(0, 229, 255, 0.8), rgba(255, 20, 147, 0.4));
+    }
+
+    .logo-text {
+      font-family: "Orbitron", system-ui;
+      font-weight: 800;
+      letter-spacing: 0.2em; /* Increased letter spacing */
+      font-size: 1.1rem; /* Larger logo text */
+      text-transform: uppercase;
+      text-shadow:
+        0 0 12px rgba(255, 20, 147, 1),
+        0 0 24px rgba(0, 229, 255, 0.9);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 0.9rem;
+    }
+
+    .nav-cta {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-aggressive);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.8rem;
+      background: radial-gradient(circle at 0 0, rgba(255, 20, 147, 0.4), transparent 60%);
+      box-shadow:
+        0 0 12px var(--accent-aggressive),
+        0 0 20px var(--accent-domination);
+      color: var(--text-light);
+      cursor: pointer;
+    }
+
+    .nav-cta:hover {
+      border-color: var(--accent-neon-blue);
+      box-shadow:
+        0 0 15px var(--accent-neon-blue),
+        0 0 30px var(--accent-aggressive);
+    }
+
+    /* --- HERO SECTION --- */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.2fr);
+      gap: 40px;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      nav {
+        display: none;
+      }
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-kicker {
+      font-size: 1rem; /* Larger Kicker */
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent-domination);
+      margin-bottom: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+
+    .hero-kicker-dot {
+      width: 10px; /* Larger Dot */
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent-aggressive);
+      box-shadow:
+        0 0 12px var(--accent-aggressive),
+        0 0 24px var(--accent-domination);
+      animation: pulse 1.5s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.95);
+        opacity: 0.9;
+      }
+      100% {
+        transform: scale(1.15);
+        opacity: 1;
+      }
+    }
+
+    .hero-title {
+      font-family: "Orbitron", system-ui;
+      font-size: clamp(3.0rem, 6vw, 4.2rem); /* Even larger title */
+      text-transform: uppercase;
+      line-height: 1.05;
+      margin-bottom: 20px;
+      text-shadow:
+        0 0 18px var(--accent-aggressive),
+        0 0 35px var(--accent-neon-blue);
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, var(--accent-aggressive), var(--accent-neon-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem; /* Larger subtitle */
+      max-width: 520px;
+      color: var(--text-light);
+      line-height: 1.5;
+      margin-bottom: 24px;
+      font-weight: 300;
+    }
+
+    .hero-subtitle strong {
+      color: var(--accent-aggressive);
+      font-weight: 800;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      position: relative;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 28px; /* Larger buttons */
+      border-radius: 999px;
+      font-size: 1rem; /* Larger font in buttons */
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800; /* Bolder text */
+      transition: transform 0.1s ease, box-shadow 0.15s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at 0 0, rgba(255, 20, 147, 0.5), transparent 60%),
+        linear-gradient(120deg, var(--accent-aggressive), var(--accent-domination));
+      box-shadow:
+        0 0 16px var(--accent-aggressive),
+        0 0 34px var(--accent-domination);
+      color: #000000;
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.02);
+      box-shadow:
+        0 0 20px var(--accent-aggressive),
+        0 0 45px var(--accent-neon-blue);
+    }
+
+    .btn-ghost {
+      padding-inline: 26px;
+      border: 2px solid var(--accent-neon-blue); /* Thicker border */
+      background: linear-gradient(135deg, rgba(25, 5, 40, 0.7), rgba(15, 3, 25, 0.9));
+      color: var(--text-light);
+      box-shadow: 0 0 16px rgba(0, 229, 255, 0.5);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent-aggressive);
+      transform: scale(1.02);
+      box-shadow:
+        0 0 18px var(--accent-neon-blue),
+        0 0 30px var(--accent-aggressive);
+    }
+
+    .hero-note {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 450px;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+    }
+
+    /* --- RIGHT SIDE CARD (Screen) --- */
+    .hero-screen {
+      position: relative;
+      padding: 18px;
+    }
+
+    .screen-frame {
+      position: relative;
+      border-radius: 28px;
+      padding: 2px; /* Thicker border */
+      background: linear-gradient(135deg, var(--accent-aggressive), var(--accent-neon-blue));
+      box-shadow:
+        0 0 25px var(--accent-aggressive),
+        0 0 35px var(--accent-neon-blue);
+      overflow: hidden;
+    }
+
+    .screen-inner {
+      border-radius: 26px;
+      padding: 20px 24px 26px;
+      background: radial-gradient(circle at 0 0, rgba(255, 20, 147, 0.2), transparent 65%),
+        radial-gradient(circle at 100% 100%, rgba(0, 229, 255, 0.2), transparent 60%),
+        linear-gradient(135deg, rgba(5, 1, 25, 0.98), rgba(4, 0, 16, 0.98));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .screen-badge {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(12px);
+      color: var(--accent-aggressive);
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+
+    .screen-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px; /* Larger gap */
+      margin-bottom: 20px;
+    }
+
+    .screen-stat {
+      padding: 12px 12px 14px;
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(20, 10, 40, 0.9), rgba(10, 5, 25, 0.96));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.95);
+    }
+
+    .screen-stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent-neon-blue);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .screen-stat-value {
+      font-family: "Orbitron", system-ui;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--accent-aggressive);
+      text-shadow: 0 0 8px rgba(255, 20, 147, 0.8);
+    }
+
+    .screen-stat-value span {
+      font-size: 0.8rem;
+      color: var(--accent-domination);
+      margin-left: 4px;
+    }
+
+    .screen-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .screen-footer-copy {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      max-width: 250px;
+    }
+
+    .screen-dot-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .screen-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .screen-dot:nth-child(1) {
+      background: var(--accent-aggressive);
+    }
+    .screen-dot:nth-child(2) {
+      background: var(--accent-neon-blue);
+    }
+    .screen-dot:nth-child(3) {
+      background: var(--accent-neon-purple);
+    }
+
+    .screen-glare {
+      position: absolute;
+      top: -80px;
+      left: -40px;
+      width: 180%;
+      height: 150%;
+      background: radial-gradient(
+        circle at 0 0,
+        rgba(255, 255, 255, 0.25),
+        transparent 55%
+      );
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    /* --- FOOTER & FORM --- */
+    .features {
+      margin-top: 60px;
+      margin-bottom: 40px;
+    }
+
+    .signup-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .signup-input-wrap {
+      position: relative;
+      flex: 1 1 250px;
+    }
+
+    .signup-input {
+      width: 100%;
+      padding: 12px 14px;
+      padding-right: 36px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-domination);
+      background: rgba(10, 0, 30, 0.95);
+      outline: none;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      box-shadow: 0 0 16px rgba(0, 0, 0, 0.9);
+      transition: border-color 0.2s;
+    }
+    .signup-input::placeholder {
+        color: var(--text-muted);
+        opacity: 0.7;
+    }
+    .signup-input:focus {
+        border-color: var(--accent-neon-blue);
+    }
+
+    .signup-button {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 800;
+      background: linear-gradient(120deg, var(--accent-neon-pink), var(--accent-aggressive));
+      color: #05000e;
+      box-shadow:
+        0 0 16px var(--accent-aggressive),
+        0 0 30px var(--accent-neon-blue);
+      white-space: nowrap;
+    }
+
+    .signup-button:hover {
+      box-shadow:
+        0 0 20px var(--accent-aggressive),
+        0 0 40px var(--accent-domination);
+      transform: scale(1.02);
+    }
+
+    footer {
+      margin-top: 50px;
+      padding-top: 25px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 15px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-aggressive);
+      text-shadow: 0 0 5px var(--accent-domination);
+    }
+  </style>
+</head>
+<body dir="ltr" spellcheck="false" style="direction: ltr;">
+  <div class="background-layer"></div>
+  <div class="background-overlay"></div>
+  <div class="city-silhouette"></div>
+  <div class="neon-girl-silhouettes"></div>
+
+  <div class="page">
+    <header>
+      <div class="logo">
+        <div class="logo-mark"></div>
+        <div class="logo-text">TellyScams - Reborn</div>
+      </div>
+      <nav>
+        <button class="nav-cta">ABSORB FEAR</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="hero-kicker">
+            <div class="hero-kicker-dot"></div>
+            UNLEASH THE POWER • WE ARE BACK
+          </div>
+          <h1 class="hero-title">
+            TELLYSCAMS<br>
+            <span>IS UNSTOPPABLE</span>
+          </h1>
+          <p class="hero-subtitle">
+            We're back and **bolder** than ever. Your wallet will be empty, your connection will be buffering. Prepare for **COMPLETE DOMINATION**, the ultimate (non-existent) IPTV experience.
+          </p>
+
+          <div class="hero-cta-row">
+            <a href="#dominate" class="btn-primary">
+              JOIN THE DOMINATION @ $200 <span>>></span>
+            </a>
+            <a href="#features" class="btn-ghost">MOCK THE WEAK @ $0<br></a>
+          </div>
+
+          <p class="hero-note">PAYMENT: Crypto, UPI, &amp; Gift Cards ONLY. We **DARE** you to trace it.</p>
+        </div>
+
+        <div class="hero-screen" id="dominate">
+          <div class="screen-frame">
+            <div class="screen-inner">
+              <div class="screen-glare"></div>
+              <div class="screen-badge">
+                Ascended Power • Maximum Output
+              </div>
+
+              <div class="screen-stat-grid">
+                <div class="screen-stat">
+                  <div class="screen-stat-label">False Promises</div>
+                  <div class="screen-stat-value">100K+ <span>LIES</span></div>
+                </div>
+                <div class="screen-stat">
+                  <div class="screen-stat-label">Crap Content</div>
+                  <div class="screen-stat-value">0 <span>MOVIES</span></div>
+                </div>
+                <div class="screen-stat">
+                  <div class="screen-stat-label">Wallet Success</div>
+                  <div class="screen-stat-value">100% <span>DRAINED</span></div>
+                </div>
+              </div>
+
+              <div class="screen-footer">
+                <p class="screen-footer-copy">
+                  All previous apologies have been deleted. Only dominance remains. Accept your fate.
+                </p>
+                <div class="screen-dot-row">
+                  <div class="screen-dot"></div>
+                  <div class="screen-dot"></div>
+                  <div class="screen-dot"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="features" id="features">
+        <form class="signup-form" onsubmit="return handleSignup(event);">
+          <div class="signup-input-wrap">
+            <input type="email" class="signup-input" placeholder="Submit your obsolete complaint here..." required>
+          </div>
+          <button type="submit" class="signup-button">SUBMIT YOUR WEAKNESS</button>
+        </form>
+        <p><br></p>
+      </section>
+    </main>
+
+    <footer>
+      <span>TellyScams 2026-2027©. All rights belong to the void.</span>
+      <div class="footer-links">
+        <a href="#">Demand More Lies</a>
+        <a href="#">Contact Our Lawyers</a>
+        <a href="#">Try to Complain (You Can't)</a>
+      </div>
+    </footer>
+  </div>
+  <script>
+    function handleSignup(event) {
+      event.preventDefault();
+      alert("COMPLAINT FILED: Your message has been routed to the trash folder. Thank you for your weakness.");
+      return false;
+    }
+  </script>
+</body>
+</html>
